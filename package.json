@@ -1,0 +1,14 @@
+{
+  "name": "kizano-story-packager",
+  "version": "1.0.0",
+  "description": "Packages and compiles the server and web versions for deployment.",
+  "main": "bin/run-server",
+  "scripts": {
+    "build": "(cd server && npm run build) && (cd web && npm run build)",
+    "dist": "(cd server && npm run dist) && (cd web && npm run dist)",
+    "test": "(cd server && npm run test) && (cd web && npm run test)"
+  },
+  "keywords": [],
+  "author": "Markizano Draconus <markizano@markizano.net>",
+  "license": "ISC"
+}
