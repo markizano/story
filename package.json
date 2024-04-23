@@ -6,7 +6,9 @@
   "scripts": {
     "build": "(cd server && npm run build) && (cd web && npm run build)",
     "dist": "(cd server && npm run dist) && (cd web && npm run dist)",
-    "test": "(cd server && npm run test) && (cd web && npm run test)"
+    "test": "(cd server && npm run test) && (cd web && npm run test)",
+    "clean": "(cd server && npm run clean) && (cd web && npm run clean)",
+    "start": "docker run -it --rm --name story.markizano.net -m 2G story.markizano.net"
   },
   "keywords": [],
   "author": "Markizano Draconus <markizano@markizano.net>",

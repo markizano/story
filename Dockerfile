@@ -17,12 +17,16 @@ WORKDIR /tmp/web
 RUN npm install && npm run ${BUILD_TARGET}
 
 RUN mkdir -p /usr/share/story
-RUN cp -av /tmp/server/dist /usr/share/story
-RUN cp -av /tmp/web/dist /usr/share/story/web
+RUN /bin/bash -c 'shopt -s dotglob && cp -av /tmp/server/dist/* /usr/share/story/'
+RUN /bin/bash -c 'shopt -s dotglob && cp -av /tmp/web/dist /usr/share/story/web'
+COPY server/package.json /usr/share/story/package.json
 
 EXPOSE ${PORT}
 
 WORKDIR /usr/share/story
-ENTRYPOINT [ "/usr/bin/node" ]
+RUN npm install
+RUN rm -rf /tmp/server /tmp/web
+
+ENTRYPOINT [ "/usr/local/bin/node" ]
 CMD [ "/usr/share/story/index.js" ]
 

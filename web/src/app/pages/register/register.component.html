@@ -1,0 +1,45 @@
+<div>
+    <h1>Register with Username, Google, Apple or Facebook</h1>
+
+    <!-- First, the user will select from one of 4 buttons: Username, Google, Apple or Facebook -->
+    <div>
+        <button (click)="registerType = RegistrationType.usernamePW">Username / Password</button>
+        <button (click)="registerType = RegistrationType.usernameOTP; genOtpSecret()">Username / OTP Code</button>
+        <button (click)="registerType = RegistrationType.google">Google</button>
+        <button (click)="registerType = RegistrationType.apple">Apple</button>
+        <button (click)="registerType = RegistrationType.facebook">Facebook</button>
+    </div>
+
+    <!-- Next, the user will see the form for the selected registration type -->
+    <div *ngIf="registerType === RegistrationType.usernamePW">
+        <form #formGroup="ngForm" (ngSubmit)="register()">
+            <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required />
+            <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required />
+            <input type="password" name="vpassword" [(ngModel)]="vpassword" placeholder="Verify Password" required />
+            <div *ngIf="errors" class="errors"><p *ngFor="let error of errors">{{ error }}</p></div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div *ngIf="registerType === RegistrationType.usernameOTP">
+        <form #formGroup="ngForm" (ngSubmit)="register()">
+            <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required />
+            <input type="text" name="otpcode" [(ngModel)]="otpcode" placeholder="OTP Code" required />
+            <qrcode [qrdata]="otpUrl()" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+            <div *ngIf="errors" class="errors"><p *ngFor="let error of errors">{{ error }}</p></div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div *ngIf="registerType === RegistrationType.google">
+        <button (click)="googleLogin()">Google Login</button>
+    </div>
+
+    <div *ngIf="registerType === RegistrationType.apple">
+        <button (click)="appleLogin()">Apple Login</button>
+    </div>
+
+    <div *ngIf="registerType === RegistrationType.facebook">
+        <button (click)="facebookLogin()">Facebook Login</button>
+    </div>
+</div>
