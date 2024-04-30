@@ -1,23 +1,12 @@
 <div id="nav" class="navigation">
-    <div class="nav-item">
-        <a routerLink="/home" routerLinkActive="active">Home</a>
+    <div class="nav-item" *ngFor="let route of routes">
+        <div class="visitable">
+            <a [routerLink]="[route.path]" routerLinkActive="active">{{ route.title }}</a>
+            <div *ngIf="route.children">
+                <div *ngFor="let child of route.children" class="sub-nav-item">
+                    <a [routerLink]="[child.path]" routerLinkActive="active">{{ child.title }}</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="nav-item">
-        <a routerLink="/about" routerLinkActive="active">About</a>
-    </div>
-    <div class="nav-item">
-        <a routerLink="/contact" routerLinkActive="active">Contact</a>
-    </div>
-    <div class="nav-item">
-        <a routerLink="/login" routerLinkActive="active">Login</a>
-    </div>
-    <div class="nav-item">
-        <a routerLink="/register" routerLinkActive="active">Register</a>
-    </div>
-    <div class="nav-item">
-        <a routerLink="/profile" routerLinkActive="active">Profile</a>
-    </div>
-    <div class="nav-item">
-        <a routerLink="/logout" routerLinkActive="active">Logout</a>
-    </div>    
 </div>

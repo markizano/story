@@ -4,7 +4,9 @@
   "description": "Packages and compiles the server and web versions for deployment.",
   "main": "bin/run-server",
   "scripts": {
-    "build": "(cd server && npm run build) && (cd web && npm run build)",
+    "build": "npm run build:server && npm run build:web",
+    "build:web": "cd web && npm run build",
+    "build:server": "cd server && npm run build",
     "dist": "(cd server && npm run dist) && (cd web && npm run dist)",
     "test": "(cd server && npm run test) && (cd web && npm run test)",
     "clean": "(cd server && npm run clean) && (cd web && npm run clean)",

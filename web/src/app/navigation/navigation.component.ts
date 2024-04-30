@@ -1,17 +1,24 @@
 import { Component } from '@angular/core';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes, Route } from '@angular/router';
 import { routes } from '../app.routes';
 import { CommonModule } from '@angular/common';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @Component({
   selector: 'navigation',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
+    NgxPermissionsModule
   ],
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.css'
 })
 export class NavigationComponent {
-  routes: Routes = routes;
+  routes: Routes;
+
+  constructor() {
+    this.routes = routes;
+  }
+
 }

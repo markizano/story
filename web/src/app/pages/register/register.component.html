@@ -1,37 +1,44 @@
 <div>
-    <h1>Register with Username, Google, Apple or Facebook</h1>
+    <h1>Register with Username <!--, Google, Apple or Facebook--></h1>
 
     <!-- First, the user will select from one of 4 buttons: Username, Google, Apple or Facebook -->
     <div>
-        <button (click)="registerType = RegistrationType.usernamePW">Username / Password</button>
-        <button (click)="registerType = RegistrationType.usernameOTP; genOtpSecret()">Username / OTP Code</button>
-        <button (click)="registerType = RegistrationType.google">Google</button>
-        <button (click)="registerType = RegistrationType.apple">Apple</button>
-        <button (click)="registerType = RegistrationType.facebook">Facebook</button>
+        <button (click)="setRegistrationType(RegistrationType.usernamePW)">Username / Password</button>
+        <button (click)="setRegistrationType(RegistrationType.usernameOTP)">Username / OTP Code</button>
+        <!-- <button (click)="setRegistrationType(RegistrationType.google)">Google</button>
+        <button (click)="setRegistrationType(RegistrationType.apple)">Apple</button>
+        <button (click)="setRegistrationType(RegistrationType.facebook)">Facebook</button> -->
     </div>
 
     <!-- Next, the user will see the form for the selected registration type -->
     <div *ngIf="registerType === RegistrationType.usernamePW">
         <form #formGroup="ngForm" (ngSubmit)="register()">
-            <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required />
-            <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required />
-            <input type="password" name="vpassword" [(ngModel)]="vpassword" placeholder="Verify Password" required />
+            <p><label>Username: <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required /></label></p>
+            <p><label>Password: <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required /></label></p>
+            <p><label>Verify Password: <input type="password" name="vpassword" [(ngModel)]="vpassword" placeholder="Verify Password" required /></label></p>
             <div *ngIf="errors" class="errors"><p *ngFor="let error of errors">{{ error }}</p></div>
-            <button type="submit">Register</button>
+            <button [disabled]="!valid" type="submit">Register</button>
         </form>
     </div>
 
     <div *ngIf="registerType === RegistrationType.usernameOTP">
         <form #formGroup="ngForm" (ngSubmit)="register()">
+            <p>
+                Scan the QR code with your Authenticator app to get the OTP code.
+                <br />
+                If you don't have an Authenticator app, you can download one from the App Store or Google Play.
+            </p>
             <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required />
             <input type="text" name="otpcode" [(ngModel)]="otpcode" placeholder="OTP Code" required />
             <qrcode [qrdata]="otpUrl()" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+            <p>If you don't want to scan the QR code, you can manually enter this key to authenticate:</p>
+            <pre><code>{{ qrsecret }}</code></pre>
             <div *ngIf="errors" class="errors"><p *ngFor="let error of errors">{{ error }}</p></div>
-            <button type="submit">Register</button>
+            <button [disabled]="!valid" type="submit">Register</button>
         </form>
     </div>
 
-    <div *ngIf="registerType === RegistrationType.google">
+    <!-- <div *ngIf="registerType === RegistrationType.google">
         <button (click)="googleLogin()">Google Login</button>
     </div>
 
@@ -41,5 +48,5 @@
 
     <div *ngIf="registerType === RegistrationType.facebook">
         <button (click)="facebookLogin()">Facebook Login</button>
-    </div>
+    </div> -->
 </div>

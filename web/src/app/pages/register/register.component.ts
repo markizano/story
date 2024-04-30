@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { NgxPermissionsService } from 'ngx-permissions';
 // import { authenticator } from '@otplib/preset-default';
 
 enum RegistrationType {
@@ -12,6 +15,13 @@ enum RegistrationType {
   facebook = 'facebook',
 }
 
+/**
+ * Yes, I stole this function. Cited below.
+ * Generate a random string of a given length.
+ * @param length {number} How many characters listed in `characters` to generate.
+ * @returns {string}
+ * @source https://stackoverflow.com/a/1349426/2769671
+ */
 function makeid(length: number): string {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -24,6 +34,7 @@ function makeid(length: number): string {
   return result;
 }
 
+@Injectable()
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -33,7 +44,7 @@ function makeid(length: number): string {
     QRCodeModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   registerType?: RegistrationType;
@@ -48,7 +59,7 @@ export class RegisterComponent {
   valid: boolean;
   errors: string[];
 
-  constructor() {
+  constructor(protected ngxService: NgxPermissionsService, protected http: HttpClient) {
     this.username = '';
     this.password = '';
     this.vpassword = '';
@@ -58,22 +69,33 @@ export class RegisterComponent {
     this.errors = [];
   }
 
-  /**
-   * Generate an OTP secret for the user and generate a QR code.
-   * The server must keep track of this.
-   */
-  genOtpSecret() {
-    this.qrsecret = makeid(32);
-  }
-
   otpUrl() {
     return `otpauth://totp/KizanoStory:${this.username}?secret=${this.qrsecret}&issuer=KizanoStory`;
   }
 
-  /**
-   * Validate the form and register the user with the server.
-   */
-  register() {
+  setRegistrationType(type: RegistrationType) {
+    this.registerType = type;
+    switch (type) {
+      case RegistrationType.usernamePW:
+        this.username = '';
+        this.password = '';
+        this.vpassword = '';
+        break;
+      case RegistrationType.usernameOTP:
+        this.username = '';
+        this.qrsecret = makeid(32);
+        this.otpcode = '';
+        break;
+      case RegistrationType.google:
+        break;
+      case RegistrationType.apple:
+        break;
+      case RegistrationType.facebook:
+        break;
+    }
+  }
+
+  validate() {
     this.valid = true;
     this.errors = [];
     switch (this.registerType) {
@@ -117,7 +139,16 @@ export class RegisterComponent {
         // Register with facebook.
         break;
     }
+    return this.valid;
+  }
+
+  /**
+   * Validate the form and register the user with the server.
+   */
+  register() {
+    this.validate();
     let payload = {
+      regType: this.registerType,
       username: this.username,
       password: this.password,
       qrsecret: this.qrsecret,
@@ -125,6 +156,10 @@ export class RegisterComponent {
     };
     console.log(payload);
     // Send the payload to the server.
+    const r = this.http.post('/api/register', payload).subscribe((response) => {
+      console.log(response);
+      r.unsubscribe();
+    });
   }
 
   /**
