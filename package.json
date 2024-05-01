@@ -7,10 +7,14 @@
     "build": "npm run build:server && npm run build:web",
     "build:web": "cd web && npm run build",
     "build:server": "cd server && npm run build",
-    "dist": "(cd server && npm run dist) && (cd web && npm run dist)",
-    "test": "(cd server && npm run test) && (cd web && npm run test)",
+    "dist": "npm run dist:server && npm run dist:web && docker build -t story.markizano.net:latest .",
+    "dist:web": "cd web && npm run dist",
+    "dist:server": "cd server && npm run dist",
+    "test": "npm run test:server && npm run test:web",
+    "test:web": "cd web && npm run test",
+    "test:server": "cd server && npm run test",
     "clean": "(cd server && npm run clean) && (cd web && npm run clean)",
-    "start": "docker run -it --rm --name story.markizano.net -m 2G story.markizano.net"
+    "start": "docker run -it --rm --name 'story.markizano.net' -m 2G story.markizano.net:latest"
   },
   "keywords": [],
   "author": "Markizano Draconus <markizano@markizano.net>",
