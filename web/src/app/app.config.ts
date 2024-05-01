@@ -2,7 +2,11 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { NgxPermissionsModule, NgxPermissionsService } from 'ngx-permissions';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)]
+    providers: [
+        provideRouter(routes),
+        NgxPermissionsService,
+    ]
 };

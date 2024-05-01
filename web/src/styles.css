@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Valid textboxes turn green with a slightly wider shadow */
+.valid {
+    border-color: green;
+    box-shadow: 0 0 10px green;
+}
+
+.invalid {
+    border-color: red;
+    box-shadow: 0 0 10px red;
+}
