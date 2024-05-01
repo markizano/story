@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { NgxPermissionsService } from 'ngx-permissions';
 // import { authenticator } from '@otplib/preset-default';
 
 enum RegistrationType {
@@ -41,7 +40,8 @@ function makeid(length: number): string {
   imports: [
     CommonModule,
     FormsModule,
-    QRCodeModule
+    QRCodeModule,
+    HttpClientModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -52,6 +52,7 @@ export class RegisterComponent {
 
   // Form fields.
   username: string;
+  email: string;
   password: string;
   vpassword: string;
   qrsecret: string;
@@ -59,8 +60,9 @@ export class RegisterComponent {
   valid: boolean;
   errors: string[];
 
-  constructor(protected ngxService: NgxPermissionsService, protected http: HttpClient) {
+  constructor(protected http: HttpClient) {
     this.username = '';
+    this.email = '';
     this.password = '';
     this.vpassword = '';
     this.qrsecret = '';
@@ -69,8 +71,9 @@ export class RegisterComponent {
     this.errors = [];
   }
 
-  otpUrl() {
-    return `otpauth://totp/KizanoStory:${this.username}?secret=${this.qrsecret}&issuer=KizanoStory`;
+  otpUrl(): string {
+    const name = encodeURI(`KizanoStory:${this.username}`)
+    return `otpauth://totp/${name}?secret=${this.qrsecret}&issuer=KizanoStory`;
   }
 
   setRegistrationType(type: RegistrationType) {
@@ -95,7 +98,7 @@ export class RegisterComponent {
     }
   }
 
-  validate() {
+  validate(): boolean {
     this.valid = true;
     this.errors = [];
     switch (this.registerType) {

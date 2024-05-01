@@ -6,7 +6,7 @@ import { StoriesComponent } from './pages/stories/stories.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { CharactersComponent } from './pages/characters/characters.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import { ngxPermissionsGuard } from 'ngx-permissions';
+// import { ngxPermissionsGuard } from 'ngx-permissions';
 
 export const routes: Routes = [{
     path: '',
@@ -28,37 +28,37 @@ export const routes: Routes = [{
     title: 'Stories',
     children: [],
     component: StoriesComponent,
-    canActivate: [ngxPermissionsGuard],
-    data: {
-        permissions: {
-            only: ['MEMBER', 'ADMIN'],
-            redirectTo: '/login'
-        }
-    }
+    // canActivate: [ngxPermissionsGuard],
+    // data: {
+    //     permissions: {
+    //         only: ['MEMBER', 'ADMIN'],
+    //         redirectTo: '/login'
+    //     }
+    // }
 }, {
     path: 'gallery',
     title: 'Gallery',
     children: [],
     component: GalleryComponent,
-    canActivate: [ngxPermissionsGuard],
-    data: {
-        permissions: {
-            only: ['MEMBER', 'ADMIN'],
-            redirectTo: '/login'
-        }
-    }
+    // canActivate: [ngxPermissionsGuard],
+    // data: {
+    //     permissions: {
+    //         only: ['MEMBER', 'ADMIN'],
+    //         redirectTo: '/login'
+    //     }
+    // }
 }, {
     path: 'characters',
     title: 'Characters',
     children: [], // @TODO: Add children routes to each of the characters.
     component: CharactersComponent,
-    canActivate: [ngxPermissionsGuard],
-    data: {
-        permissions: {
-            only: ['MEMBER', 'ADMIN'],
-            redirectTo: '/login'
-        }
-    }
+    // canActivate: [ngxPermissionsGuard],
+    // data: {
+    //     permissions: {
+    //         only: ['MEMBER', 'ADMIN'],
+    //         redirectTo: '/login'
+    //     }
+    // }
 }, {
     path: 'contact',
     title: 'Contact Me',
