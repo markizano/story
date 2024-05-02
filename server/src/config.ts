@@ -23,7 +23,7 @@ export interface iConfig {
 }
 
 export class Config {
-    static APP_NAME = 'kizano';
+    static APP_NAME = 'kizano-story';
 
     protected static instance: Config;
     config: iConfig;

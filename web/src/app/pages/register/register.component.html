@@ -43,7 +43,7 @@
             <button (click)="genSecret()">GenSecret</button>
             <qrcode *ngIf="!!username" [qrdata]="otpUrl()" [width]="256" [errorCorrectionLevel]="'M'"></qrcode><br />
             <p>If you don't want to scan the QR code, you can manually enter this key to authenticate:</p>
-            <label>Key: <code>{{ qrsecret }}</code></label><br />
+            <label>Key: <code>{{ otpsecret }}</code></label><br />
             <label>Issuer: <code>KizanoStory</code></label><br />
             <div *ngIf="errors" class="errors"><p *ngFor="let error of errors">{{ error }}</p></div>
             <button [disabled]="!valid || !otpvalid" type="submit" (click)="register()">Register</button>

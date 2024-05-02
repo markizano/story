@@ -16,7 +16,7 @@ export enum RegistrationType {
 }
 
 export interface RegistrationPayload {
-    type: RegistrationType;
+    regType: RegistrationType;
     username: string;
     password: string;
     vpassword: string;
@@ -52,12 +52,15 @@ export class Register {
     post_new(req: Request, res: Response) {
         res.header("Content-Type", "application/json");
         try {
-            const attempt = <RegistrationPayload>JSON.parse(req.body);
+            console.debug(req.body);
+            const attempt = <RegistrationPayload>req.body;
             this.validate(attempt);
             this.db.collection('users').insertOne({
                 username: attempt.username,
-                password: attempt.password,
+                password: hashPass(attempt.password),
                 otpsecret: attempt.otpsecret
+            }).then(inserted => {
+                console.debug(inserted);
             });
             res.status(200);
             res.send({
@@ -75,19 +78,19 @@ export class Register {
     }
 
     protected validate(attempt: RegistrationPayload) {
-        if ( [RegistrationType.usernameOTP, RegistrationType.usernamePW].includes(attempt.type) ) {
+        if ( [RegistrationType.usernameOTP, RegistrationType.usernamePW].includes(attempt.regType) ) {
             if ( attempt.username.length > 5 ) {
                 throw new Error('Username too short');
             }
             if ( attempt.password.length < 8 ) {
                 throw new Error('Password too short');
             }
-            if ( attempt.type === RegistrationType.usernamePW ) {
+            if ( attempt.regType === RegistrationType.usernamePW ) {
                 if ( attempt.password !== attempt.vpassword ) {
                     throw new Error('Passwords do not match');
                 }
             }
-            if (attempt.type === RegistrationType.usernameOTP) {
+            if (attempt.regType === RegistrationType.usernameOTP) {
                 if (attempt.otpcode.length < 6) {
                     throw new Error('OTP code too short');
                 }

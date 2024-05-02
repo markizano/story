@@ -37,7 +37,7 @@ export class RegisterComponent {
     email: string;
     password: string;
     vpassword: string;
-    qrsecret: string;
+    otpsecret: string;
     otpcode: string;
     valid: boolean;
     otpvalid?: boolean;
@@ -48,18 +48,18 @@ export class RegisterComponent {
         this.email = '';
         this.password = '';
         this.vpassword = '';
-        this.qrsecret = '';
+        this.otpsecret = '';
         this.otpcode = '';
         this.valid = false;
         this.errors = [];
     }
 
     otpUrl(): string {
-        return authenticator.keyuri(encodeURIComponent(this.username), 'KizanoStory', this.qrsecret);
+        return authenticator.keyuri(encodeURIComponent(this.username), 'KizanoStory', this.otpsecret);
     }
 
     genSecret() {
-        this.qrsecret = authenticator.generateSecret();
+        this.otpsecret = authenticator.generateSecret();
     }
 
     /**
@@ -70,7 +70,7 @@ export class RegisterComponent {
             this.otpvalid = false;
             return;
         }
-        if ( authenticator.check(this.otpcode, this.qrsecret) ) {
+        if ( authenticator.check(this.otpcode, this.otpsecret) ) {
             this.otpvalid = true;
         } else {
             this.otpvalid = false;
@@ -87,7 +87,7 @@ export class RegisterComponent {
                 break;
             case RegistrationType.usernameOTP:
                 this.username = '';
-                this.qrsecret = authenticator.generateSecret();
+                this.otpsecret = authenticator.generateSecret();
                 this.otpcode = '';
                 break;
             case RegistrationType.google:
@@ -156,7 +156,7 @@ export class RegisterComponent {
             regType: this.registerType,
             username: this.username,
             password: this.password,
-            qrsecret: this.qrsecret,
+            otpsecret: this.otpsecret,
             otpcode: this.otpcode,
         };
         console.log(payload);
