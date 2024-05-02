@@ -10,7 +10,7 @@ export enum RegistrationType {
     facebook = 'facebook',
 }
 
-export interface ApiVerifyResult {
+export interface ApiResult {
     result: boolean;
     message: string;
 }

@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+/*
+  For the OTP authenticator stuff, ignore what TS has to say. The original libraries are included
+  in the browser. The compiled result will end up using those.
+*/
 // @ts-ignore
 import { authenticator } from '@otplib/preset-browser';
 
-import { RegistrationType, ApiVerifyResult } from '../../lib/common';
+import { RegistrationType, ApiResult } from '../../lib/common';
 
 @Injectable()
 @Component({
@@ -17,6 +23,7 @@ import { RegistrationType, ApiVerifyResult } from '../../lib/common';
         FormsModule,
         QRCodeModule,
         HttpClientModule,
+        RouterModule,
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.css',
@@ -36,7 +43,7 @@ export class RegisterComponent {
     otpvalid?: boolean;
     errors: string[];
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient, protected router: Router) {
         this.username = '';
         this.email = '';
         this.password = '';
@@ -121,10 +128,11 @@ export class RegisterComponent {
                     this.errors.push('OTP code must be 6 characters.');
                     this.valid = false;
                 }
-                // if (!authenticator.check(this.otpcode, this.qrsecret)) {
-                //   this.errors.push('Invalid OTP code.');
-                //   this.valid = false;
-                // }
+                this.checkOTP();
+                if ( !this.otpvalid ) {
+                  this.errors.push('Invalid OTP code.');
+                  this.valid = false;
+                }
                 break;
             case RegistrationType.google:
                 // Register with google.
@@ -153,9 +161,20 @@ export class RegisterComponent {
         };
         console.log(payload);
         // Send the payload to the server.
-        const r = this.http.post('/api/register', payload).subscribe((response) => {
-            console.log(response);
+        const r = this.http.post('/api/register', payload).subscribe((res) => {
+            console.log(res);
             r.unsubscribe();
+            const response = <ApiResult>res;
+            if ( response.result ) {
+                // Registration was successful.
+                // Redirect to the login page.
+                this.router.navigate(['/login']);
+            } else {
+                // Registration failed.
+                // Show the error message.
+                this.valid = false;
+                this.errors.push(response.message);
+            }
         });
     }
 
