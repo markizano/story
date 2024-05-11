@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import { realpathSync as realpath } from 'fs';
 import * as BodyParser from "body-parser";

@@ -1,11 +1,13 @@
 import { Express, Request, Response } from "express";
 
-import { Register } from "./register";
+import { RegisterController } from "./controllers/register.controller";
+import { LoginController } from "./controllers/login.controller";
 
 export function routeApp(app: Express) {
     app.get("/api", (req: Request, res: Response) => {
         res.send("Hello world");
     });
+
     const shutdown = (req: Request, res: Response) => {
         res.send('Shutting down...');
         console.log('Shutting down...')
@@ -15,11 +17,10 @@ export function routeApp(app: Express) {
     app.get('/api/shutdown', shutdown);
     app.post('/api/shutdown', shutdown);
     
-    const registration = new Register();
-    app.get('/api/register', (req, res) => registration.get_new(req, res));
-    app.post('/api/register', (req, res) => registration.post_new(req, res));
+    const controllers = [
+        new RegisterController(app),
+        new LoginController(app)
+    ]
 
     return app;
 }
-
-
