@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 /*
   For the OTP authenticator stuff, ignore what TS has to say. The original libraries are included
@@ -43,6 +43,8 @@ export class RegisterComponent {
     otpvalid?: boolean;
     errors: string[];
 
+    protected _headers: HttpHeaders;
+
     constructor(protected http: HttpClient, protected router: Router) {
         this.username = '';
         this.email = '';
@@ -52,6 +54,7 @@ export class RegisterComponent {
         this.otpcode = '';
         this.valid = false;
         this.errors = [];
+        this._headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     }
 
     otpUrl(): string {
@@ -161,7 +164,7 @@ export class RegisterComponent {
         };
         console.log(payload);
         // Send the payload to the server.
-        const r = this.http.post('/api/register', payload).subscribe((res) => {
+        const r = this.http.post('/api/register', payload, {headers: this._headers}).subscribe((res) => {
             console.log(res);
             r.unsubscribe();
             const response = <ApiResult>res;

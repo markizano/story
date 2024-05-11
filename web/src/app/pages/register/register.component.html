@@ -13,10 +13,10 @@
     <!-- Next, the user will see the form for the selected registration type -->
     <div *ngIf="registerType === RegistrationType.usernamePW">
         <form #formGroup="ngForm">
-            <p><label>Username: <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required /></label></p>
-            <p><label>eMail: <input type="email" name="email" [(ngModel)]="email" placeholder="eMail" required /></label></p>
-            <p><label>Password: <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required /></label></p>
-            <p><label>Verify Password: <input type="password" name="vpassword" [(ngModel)]="vpassword" placeholder="Verify Password" required /></label></p>
+            <p><label>Username: <input type="text" name="username" [(ngModel)]="username" (change)="validate()" placeholder="Username" required /></label></p>
+            <p><label>eMail: <input type="email" name="email" [(ngModel)]="email" (change)="validate()" placeholder="eMail" required /></label></p>
+            <p><label>Password: <input type="password" name="password" [(ngModel)]="password" (change)="validate()" placeholder="Password" required /></label></p>
+            <p><label>Verify Password: <input type="password" name="vpassword" [(ngModel)]="vpassword" (change)="validate()" placeholder="Verify Password" required /></label></p>
             <div *ngIf="errors" class="errors"><p *ngFor="let error of errors">{{ error }}</p></div>
             <button [disabled]="!valid" type="submit" (click)="register()">Register</button>
         </form>
