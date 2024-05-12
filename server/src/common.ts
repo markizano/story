@@ -7,7 +7,7 @@ export interface ApiResult {
     status: number;
 }
 
-export enum LoginType {
+export enum AuthenticationType {
     usernamePW = 'usernamePW',
     usernameOTP = 'usernameOTP',
     google = 'google',
@@ -16,22 +16,14 @@ export enum LoginType {
 }
 
 export interface LoginPayload {
-    loginType: LoginType;
+    loginType: AuthenticationType;
     username: string;
     password?: string;
     otpcode?: string;
 }
 
-export enum RegistrationType {
-    usernamePW = 'usernamePW',
-    usernameOTP = 'usernameOTP',
-    google = 'google',
-    apple = 'apple',
-    facebook = 'facebook',
-}
-
 export interface RegistrationPayload {
-    regType: RegistrationType;
+    regType: AuthenticationType;
     username: string;
     email: string;
     password: string;

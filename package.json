@@ -4,9 +4,10 @@
   "description": "Packages and compiles the server and web versions for deployment.",
   "main": "bin/run-server",
   "scripts": {
-    "build": "npm run build:server && npm run build:web",
+    "build": "npm run build:server && npm run build:web && npm run build:docker",
     "build:web": "cd web && npm run build",
     "build:server": "cd server && npm run build",
+    "build:docker": "docker build -t story.markizano.net .",
     "test": "npm run test:server && npm run test:web",
     "test:web": "cd web && npm run test",
     "test:server": "cd server && npm run test",

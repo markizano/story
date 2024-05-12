@@ -1,7 +1,7 @@
 FROM node:18
 
 # target can be "dist" or "build"
-ARG BUILD_TARGET=dist
+ARG BUILD_TARGET=build
 
 ENV MONGO_URI "mongodb://mongodb:27017/kizanoStory"
 ENV HOST 0.0.0.0

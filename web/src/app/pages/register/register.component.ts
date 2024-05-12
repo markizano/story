@@ -12,7 +12,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 // @ts-ignore
 import { authenticator } from '@otplib/preset-browser';
 
-import { RegistrationType, ApiResult } from '../../lib/common';
+import { AuthenticationType, ApiResult, BaseComponent } from '../../lib/common';
 
 @Injectable()
 @Component({
@@ -28,9 +28,9 @@ import { RegistrationType, ApiResult } from '../../lib/common';
     templateUrl: './register.component.html',
     styleUrl: './register.component.css',
 })
-export class RegisterComponent {
-    registerType?: RegistrationType;
-    RegistrationType = RegistrationType;
+export class RegisterComponent extends BaseComponent {
+    registerType?: AuthenticationType;
+    RegistrationType = AuthenticationType;
 
     // Form fields.
     username: string;
@@ -39,13 +39,10 @@ export class RegisterComponent {
     vpassword: string;
     otpsecret: string;
     otpcode: string;
-    valid: boolean;
     otpvalid?: boolean;
-    errors: string[];
-
-    protected _headers: HttpHeaders;
 
     constructor(protected http: HttpClient, protected router: Router) {
+        super();
         this.username = '';
         this.email = '';
         this.password = '';
@@ -54,7 +51,6 @@ export class RegisterComponent {
         this.otpcode = '';
         this.valid = false;
         this.errors = [];
-        this._headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     }
 
     otpUrl(): string {
@@ -80,24 +76,24 @@ export class RegisterComponent {
         }
     }
 
-    setRegistrationType(type: RegistrationType) {
+    setRegistrationType(type: AuthenticationType) {
         this.registerType = type;
         switch (type) {
-            case RegistrationType.usernamePW:
+            case AuthenticationType.usernamePW:
                 this.username = '';
                 this.password = '';
                 this.vpassword = '';
                 break;
-            case RegistrationType.usernameOTP:
+            case AuthenticationType.usernameOTP:
                 this.username = '';
                 this.otpsecret = authenticator.generateSecret();
                 this.otpcode = '';
                 break;
-            case RegistrationType.google:
+            case AuthenticationType.google:
                 break;
-            case RegistrationType.apple:
+            case AuthenticationType.apple:
                 break;
-            case RegistrationType.facebook:
+            case AuthenticationType.facebook:
                 break;
         }
     }
@@ -106,7 +102,7 @@ export class RegisterComponent {
         this.valid = true;
         this.errors = [];
         switch (this.registerType) {
-            case RegistrationType.usernamePW:
+            case AuthenticationType.usernamePW:
                 // Register with username and password.
                 if (this.username.length < 5) {
                     this.errors.push('Username must be at least 5 characters.');
@@ -121,7 +117,7 @@ export class RegisterComponent {
                     this.valid = false;
                 }
                 break;
-            case RegistrationType.usernameOTP:
+            case AuthenticationType.usernameOTP:
                 // Register with username and OTP.
                 if (this.username.length < 5) {
                     this.errors.push('Username must be at least 5 characters.');
@@ -137,13 +133,13 @@ export class RegisterComponent {
                   this.valid = false;
                 }
                 break;
-            case RegistrationType.google:
+            case AuthenticationType.google:
                 // Register with google.
                 break;
-            case RegistrationType.apple:
+            case AuthenticationType.apple:
                 // Register with apple.
                 break;
-            case RegistrationType.facebook:
+            case AuthenticationType.facebook:
                 // Register with facebook.
                 break;
         }

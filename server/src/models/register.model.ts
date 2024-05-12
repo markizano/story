@@ -3,7 +3,7 @@ import { authenticator } from "@otplib/preset-default";
 
 import { Config } from "../config";
 import { hashPass } from "../utils";
-import { RegistrationPayload, ApiResult, RegistrationType, DEFAULT_MONGO_URL, RoleType } from "../common";
+import { RegistrationPayload, ApiResult, AuthenticationType, DEFAULT_MONGO_URL, RoleType } from "../common";
 
 export class RegistrationModel {
     config: Config;
@@ -24,7 +24,7 @@ export class RegistrationModel {
         console.log('Registration validate function is called');
         let result = true, status = 200;
         const errors: string[] = [];
-        if ( [RegistrationType.usernameOTP, RegistrationType.usernamePW].includes(payload.regType) ) {
+        if ( [AuthenticationType.usernameOTP, AuthenticationType.usernamePW].includes(payload.regType) ) {
             if ( payload.username.length < 5 ) {
                 result = false;
                 status = 400;
@@ -35,14 +35,14 @@ export class RegistrationModel {
                 status = 400;
                 errors.push('Password too short');
             }
-            if ( payload.regType === RegistrationType.usernamePW ) {
+            if ( payload.regType === AuthenticationType.usernamePW ) {
                 if ( payload.password !== payload.vpassword ) {
                     result = false;
                     status = 400;
                     errors.push('Passwords do not match');
                 }
             }
-            if (payload.regType === RegistrationType.usernameOTP) {
+            if (payload.regType === AuthenticationType.usernameOTP) {
                 if (payload.otpcode.length < 6) {
                     result = false;
                     status = 400;
@@ -106,5 +106,4 @@ export class RegistrationModel {
         }
         return { result: false, errors: [], status: 200 };
     }
-
 }

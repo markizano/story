@@ -1,6 +1,6 @@
 import { MongoClient, Db } from 'mongodb';
 import { Config } from '../config';
-import { ApiResult, LoginPayload, LoginType, DEFAULT_MONGO_URL } from '../common';
+import { ApiResult, LoginPayload, AuthenticationType, DEFAULT_MONGO_URL } from '../common';
 import { hashPass } from '../utils';
 import { authenticator } from '@otplib/preset-default';
 
@@ -29,14 +29,14 @@ export class LoginModel {
             status = 400;
         }
         switch(payload.loginType) {
-            case LoginType.usernamePW:
+            case AuthenticationType.usernamePW:
                 if ( ! payload.password ) {
                     errors.push("Missing password.");
                     result = false;
                     status = 400;
                 }
                 break;
-            case LoginType.usernameOTP:
+            case AuthenticationType.usernameOTP:
                 if ( ! payload.otpcode ) {
                     errors.push("Missing OTP code.");
                     result = false;
@@ -64,32 +64,32 @@ export class LoginModel {
         }
         // Check the DB for the user.
         // If the user is found, check the password.
-        let users = await this.db.collection('users').findOne({
+        let user = await this.db.collection('users').findOne({
             username: payload.username
         });
-        if ( ! users ) {
+        if ( ! user ) {
             result.result = false;
             result.errors.push('User not found.');
-        } else {
-            switch(payload.loginType) {
-                case LoginType.usernamePW:
-                    const hashedPass = hashPass(<string>payload.password, users.password.split(':').shift());
-                    if ( users.password !== hashedPass ) {
-                        result.result = false;
-                        result.errors.push('Password is incorrect.');
-                    }
-                    break;
-                case LoginType.usernameOTP:
-                    // OTP code
-                    if ( ! authenticator.check(<string>payload.otpcode, users.otpsecret) ) {
-                        result.result = false;
-                        result.errors.push('OTP code is incorrect.');
-                    }
-                    break;
-                default:
+            return result;
+        }
+        switch(payload.loginType) {
+            case AuthenticationType.usernamePW:
+                const hashedPass = hashPass(<string>payload.password, user.password.split(':').shift());
+                if ( user.password !== hashedPass ) {
                     result.result = false;
-                    result.errors.push('Invalid login type.');
-            }
+                    result.errors.push('Password is incorrect.');
+                }
+                break;
+            case AuthenticationType.usernameOTP:
+                // OTP code
+                if ( ! authenticator.check(<string>payload.otpcode, user.otpsecret) ) {
+                    result.result = false;
+                    result.errors.push('OTP code is incorrect.');
+                }
+                break;
+            default:
+                result.result = false;
+                result.errors.push('Invalid login type.');
         }
         return result
     }
