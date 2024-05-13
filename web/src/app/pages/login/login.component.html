@@ -14,7 +14,7 @@
                                 <p><label>Password: <input class="form-control" placeholder="Password" name="password" type="password" [(ngModel)]="password" value="" /></label></p>
                             </div>
                             <div class="form-group" *ngIf="authType == AuthenticationType.usernameOTP">
-                                <p><label>OTP Code: <input class="form-control" placeholder="012345" name="otpcode" type="password" [(ngModel)]="otpcode" value="" /></label></p>
+                                <p><label>OTP Code: <input class="form-control" placeholder="012345" name="otpcode" type="text" [(ngModel)]="otpcode" value="" /></label></p>
                             </div>
                             <div class="form-group">
                                 <p>Auth Type: </p>

@@ -98,7 +98,7 @@ export class LoginModel {
      * Get the users from the DB and return the results (redacting passwords and otpsecrets).
      */
     async getUsers(): Promise<any> {
-        console.log('Get users function is called');
+        console.log('model: Get users function is called');
         const users = await this.db.collection('users').find({}).toArray();
         return users;
     }

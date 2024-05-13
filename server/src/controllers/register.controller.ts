@@ -2,11 +2,13 @@ import { Express, Request, Response } from "express";
 
 import { RegistrationModel } from "../models/register.model";
 import { RegistrationPayload } from "../common";
+import { BaseController } from "./base.controller";
 
-export class RegisterController {
+export class RegisterController extends BaseController {
     model: RegistrationModel;
 
     constructor(app: Express) {
+        super();
         this.model = new RegistrationModel();
         app.get('/api/register', (req, res) => this.get_new(req, res));
         app.post('/api/register', (req, res) => this.post_new(req, res));

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
 
 /*
@@ -155,24 +155,29 @@ export class RegisterComponent extends BaseComponent {
             regType: this.registerType,
             username: this.username,
             password: this.password,
+            email: this.email,
             otpsecret: this.otpsecret,
             otpcode: this.otpcode,
         };
         console.log(payload);
         // Send the payload to the server.
-        const r = this.http.post('/api/register', payload, {headers: this._headers}).subscribe((res) => {
-            console.log(res);
-            r.unsubscribe();
-            const response = <ApiResult>res;
-            if ( response.result ) {
-                // Registration was successful.
-                // Redirect to the login page.
-                this.router.navigate(['/login']);
-            } else {
-                // Registration failed.
-                // Show the error message.
+        const r = this.http.post('/api/register', payload, {headers: this._headers}).subscribe({
+            next: (res) => ((response: ApiResult) => {
+                if ( response.result ) {
+                    // Registration was successful.
+                    // Redirect to the login page.
+                    this.router.navigate(['/login']);
+                } else {
+                    // Registration failed.
+                    // Show the error message.
+                    this.valid = false;
+                    this.errors.push(response.message);
+                }
+            })(res as ApiResult),
+            error: (err: HttpErrorResponse) => {
+                console.log(err);
                 this.valid = false;
-                this.errors.push(response.message);
+                this.errors = err.error.errors;
             }
         });
     }

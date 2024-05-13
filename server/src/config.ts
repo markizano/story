@@ -13,13 +13,24 @@ import { join } from 'path';
 import { load } from 'js-yaml';
 import deepmerge from 'deepmerge';
 
+export enum AppMode {
+    DEV = 'development',
+    PROD = 'production',
+}
+
 export interface iConfig {
+    mode?: AppMode;
     mongo?: {
         uri: string;
     };
     gpg?: {
         key: string;
     };
+    host?: string;
+    port?: number;
+    webroot?: string;
+    trustProxy?: boolean;
+    sessionSecret?: string;
 }
 
 export class Config {
@@ -29,7 +40,7 @@ export class Config {
     config: iConfig;
 
     protected constructor() {
-        this.config = {};
+        this.config = {mode: process.env.NODE_ENV === 'production'? AppMode.PROD: AppMode.DEV};
     }
 
     static getInstance(): Config {
