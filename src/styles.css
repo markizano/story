@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+
+/** https://paletton.com/#uid=63V0u0kv9Ryat++kAZ7P7ofV63v **/
+
+/* Overall, resetting the world to normal homeostasis. */
+:root {
+    --primary-light: #F5F6FF;
+    --primary: #6F7FFA;
+    --primary-dark: #243BE8;
+    --primary-darker: #071585;
+    --primary-darkest: #000313;
+    --secondary-light: #F9F5FF;
+    --secondary: #9E69FA;
+    --secondary-dark: #661CE7;
+    --secondary-darker: #330584;
+    --secondary-darkest: #070013;
+    --tertiary-light: #F4FCFF;
+    --tertiary: #61C8F9;
+    --tertiary-dark: #119FE3;
+    --tertiary-darker: #02537A;
+    --tertiary-darkest: #000C12;
+    --complement-light: #FFFCF4;
+    --complement: #FFD25B;
+    --complement-dark: #FFBA07;
+    --complement-darker: #C18C00;
+    --complement-darkest: #403008;
+    --neutral-lighter: #EEE;
+    --neutral-light: #AAA;
+    --neutral: #666;
+    --neutral-dark: #333;
+    --neutral-darker: #111;
+}
