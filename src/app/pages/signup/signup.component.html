@@ -1,1 +1,132 @@
-<p>signup works!</p>
+<div class="signup-container">
+  <div class="signup-card">
+    <div class="navigation-links">
+      <a href="/login" class="back-link" (click)="navigateToLogin()">← Back to Login</a>
+      <a href="/" class="back-link" (click)="navigateToHome()">← Back to Home</a>
+    </div>
+    <h1>Create Your Account</h1>
+    <p class="subtitle">Join the adventure and start your journey today</p>
+
+    <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="firstName"
+            required
+            #firstNameInput="ngModel"
+            [class.error]="firstNameInput.invalid && firstNameInput.touched"
+            autocomplete="given-name"
+          >
+          <div class="error-message" *ngIf="firstNameInput.invalid && firstNameInput.touched">
+            First name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="lastName"
+            required
+            #lastNameInput="ngModel"
+            [class.error]="lastNameInput.invalid && lastNameInput.touched"
+            autocomplete="family-name"
+          >
+          <div class="error-message" *ngIf="lastNameInput.invalid && lastNameInput.touched">
+            Last name is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          #usernameInput="ngModel"
+          [class.error]="usernameInput.invalid && usernameInput.touched"
+          autocomplete="username"
+        >
+        <div class="error-message" *ngIf="usernameInput.invalid && usernameInput.touched">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+          #emailInput="ngModel"
+          [class.error]="emailInput.invalid && emailInput.touched"
+          autocomplete="email"
+        >
+        <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+          <span *ngIf="emailInput.errors?.['required']">Email is required</span>
+          <span *ngIf="emailInput.errors?.['email']">Please enter a valid email address</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="12"
+          #passwordInput="ngModel"
+          [class.error]="passwordInput.invalid && passwordInput.touched"
+          autocomplete="new-password"
+        >
+        <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+          <span *ngIf="passwordInput.errors?.['required']">Password is required</span>
+          <span *ngIf="passwordInput.errors?.['minlength']">Password must be at least 12 characters long</span>
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            name="acceptTerms"
+            [(ngModel)]="acceptTerms"
+            required
+            #termsInput="ngModel"
+          >
+          <span>I accept the <a href="/toc" target="_blank">Terms and Conditions</a></span>
+        </label>
+        <div class="error-message" *ngIf="termsInput.invalid && termsInput.touched">
+          You must accept the terms and conditions
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="signupForm.invalid || isLoading"
+      >
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading">Creating Account...</span>
+      </button>
+    </form>
+  </div>
+</div>
