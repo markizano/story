@@ -62,6 +62,16 @@
   color: var(--secondary);
 }
 
+.cta-button.login {
+  background: var(--tertiary);
+  color: var(--tertiary-light);
+  border: none;
+}
+
+.cta-button.login:hover {
+  background: var(--tertiary-dark);
+}
+
 .special-offer {
   margin-top: 2rem;
   padding: 1.5rem;
