@@ -1,1 +1,60 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <a href="/" class="back-home">← Back to Home</a>
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to continue your journey</p>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          #usernameInput="ngModel"
+          [class.error]="usernameInput.invalid && usernameInput.touched"
+          autocomplete="username"
+        >
+        <div class="error-message" *ngIf="usernameInput.invalid && usernameInput.touched">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          #passwordInput="ngModel"
+          [class.error]="passwordInput.invalid && passwordInput.touched"
+          autocomplete="current-password"
+        >
+        <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+          Password is required
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        <span *ngIf="!isLoading">Sign In</span>
+        <span *ngIf="isLoading">Signing In...</span>
+      </button>
+
+      <div class="forgot-password">
+        <a href="/login/forgot" (click)="navigateToForgotPassword()">Forgot Password?</a>
+      </div>
+    </form>
+  </div>
+</div>
