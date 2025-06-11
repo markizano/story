@@ -1,1 +1,48 @@
-<p>forgotpw works!</p>
+<div class="forgot-password-container">
+  <div class="forgot-password-card">
+    <div class="navigation-links">
+      <a href="/login" class="back-link" (click)="navigateToLogin()">← Back to Login</a>
+      <a href="/" class="back-link">← Back to Home</a>
+    </div>
+    <h1>Forgot Password</h1>
+    <p class="subtitle">Enter your email address and we'll send you instructions to reset your password</p>
+
+    <form (ngSubmit)="onSubmit()" #forgotForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+          #emailInput="ngModel"
+          [class.error]="emailInput.invalid && emailInput.touched"
+          autocomplete="email"
+        >
+        <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+          <span *ngIf="emailInput.errors?.['required']">Email is required</span>
+          <span *ngIf="emailInput.errors?.['email']">Please enter a valid email address</span>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="success-message" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="forgotForm.invalid || isLoading"
+      >
+        <span *ngIf="!isLoading">Send Reset Instructions</span>
+        <span *ngIf="isLoading">Sending...</span>
+      </button>
+    </form>
+  </div>
+</div>

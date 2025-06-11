@@ -7,6 +7,7 @@ import { CharactersComponent } from 'app/pages/characters/characters.component';
 import { CharacterDetailComponent } from 'app/pages/characters/character-detail.component';
 import { StoriesComponent } from 'app/pages/stories/stories.component';
 import { StoryDetailComponent } from 'app/pages/stories/story-detail.component';
+import { ForgotpwComponent } from 'app/pages/login/forgotpw.component';
 
 /*
 /: Home page, intro to story, CTA to sign up.
@@ -29,9 +30,19 @@ export const routes: Routes = [
         title: 'Sign Up',
         path: 'signup',
     }, {
-        component: LoginComponent,
-        title: 'Login',
         path: 'login',
+        children: [
+            {
+                component: LoginComponent,
+                title: 'Login',
+                path: '',
+            },
+            {
+                component: ForgotpwComponent,
+                title: 'Forgot Password',
+                path: 'forgot',
+            }
+        ]
     }, {
         component: LogoutComponent,
         title: 'Logout',
