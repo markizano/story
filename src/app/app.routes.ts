@@ -22,34 +22,34 @@ import { ForgotpwComponent } from 'app/pages/login/forgotpw.component';
 export const routes: Routes = [
     {
         component: HomeComponent,
-        title: 'Home',
+        title: 'Adventures of Markizano Draconus',
         path: '',
         children: [],
     }, {
         component: SignupComponent,
-        title: 'Sign Up',
+        title: 'Sign Up for the Journey!',
         path: 'signup',
     }, {
         path: 'login',
         children: [
             {
                 component: LoginComponent,
-                title: 'Login',
+                title: 'Login to access the story!',
                 path: '',
             },
             {
                 component: ForgotpwComponent,
-                title: 'Forgot Password',
+                title: 'Markizano Draconus - Forgot Password',
                 path: 'forgot',
             }
         ]
     }, {
         component: LogoutComponent,
-        title: 'Logout',
+        title: 'Markizano Draconus - Logout',
         path: 'logout',
     }, {
         path: 'characters',
-        title: 'Characters',
+        title: 'Markizano Draconus - Characters',
         children: [
             {
                 path: '',
@@ -61,7 +61,7 @@ export const routes: Routes = [
         ]
     }, {
         path: 'story',
-        title: 'Stories',
+        title: 'Markizano Draconus - Stories',
         children: [
             {
                 path: '',
