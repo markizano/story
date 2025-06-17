@@ -9,16 +9,6 @@ import { StoriesComponent } from 'app/pages/stories/stories.component';
 import { StoryDetailComponent } from 'app/pages/stories/story-detail.component';
 import { ForgotpwComponent } from 'app/pages/login/forgotpw.component';
 
-/*
-/: Home page, intro to story, CTA to sign up.
-/signup: Sign up page, form to create a new account.
-/login: Login page, form to log in to an existing account.
-/logout: Logout page, action to log out of the current session.
-/characters: List of characters, view details of each character.
-/characters/:id: View details of a specific character.
-/stories: List of stories, view details of each story.
-/stories/:id: View details of a specific story.
-*/
 export const routes: Routes = [
     {
         component: HomeComponent,
