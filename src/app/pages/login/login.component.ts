@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'mz-login',
@@ -16,25 +16,27 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
   isLoading: boolean = false;
+  returnUrl: string = '/stories';
 
   constructor(
     private router: Router,
-    private http: HttpClient
-  ) {}
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {
+    // Get return url from route parameters or default to '/stories'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/stories';
+  }
 
   onSubmit(): void {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.http.post('/api/login', {
-      username: this.username,
-      password: this.password
-    }).subscribe({
+    this.authService.login(this.username, this.password).subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/stories']);
+        this.router.navigateByUrl(this.returnUrl);
       },
-      error: (error: HttpErrorResponse) => {
+      error: (error) => {
         this.isLoading = false;
         if (error.status === 401 || error.status === 403) {
           this.errorMessage = 'Invalid username or password. Please try again.';
@@ -48,6 +50,6 @@ export class LoginComponent {
   }
 
   navigateToForgotPassword(): void {
-    this.router.navigate(['/login/forgot']);
+    this.router.navigate(['login', 'forgot']);
   }
 }

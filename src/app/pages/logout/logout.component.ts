@@ -1,11 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'mz-logout',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css'
 })
-export class LogoutComponent {
+export class LogoutComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
+  ngOnInit(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        // Even if the logout request fails, we'll still redirect to home
+        this.router.navigate(['/']);
+      }
+    });
+  }
 }

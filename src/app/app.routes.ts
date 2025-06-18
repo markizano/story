@@ -8,6 +8,7 @@ import { CharacterDetailComponent } from 'app/pages/characters/character-detail.
 import { StoriesComponent } from 'app/pages/stories/stories.component';
 import { StoryDetailComponent } from 'app/pages/stories/story-detail.component';
 import { ForgotpwComponent } from 'app/pages/login/forgotpw.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -40,6 +41,7 @@ export const routes: Routes = [
     }, {
         path: 'characters',
         title: 'Markizano Draconus - Characters',
+        canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -50,8 +52,9 @@ export const routes: Routes = [
             }
         ]
     }, {
-        path: 'story',
+        path: 'stories',
         title: 'Markizano Draconus - Stories',
+        canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -62,7 +65,7 @@ export const routes: Routes = [
             }
         ]
     }, {
-        path: '*',
+        path: '**',
         redirectTo: '/'
     }
 ];
