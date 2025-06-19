@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthStatus } from 'app/types';
+import { AuthStatus } from 'app/app.types';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +41,8 @@ export class AuthService {
     });
   }
 
-  login(username: string, password: string): Observable<any> {
-    return new Observable(observer => {
+  login(username: string, password: string): Observable<AuthStatus> {
+    return new Observable<AuthStatus>(observer => {
       this.http.post<AuthStatus>('/api/auth/login', { username, password }).subscribe({
         next: (response: AuthStatus) => {
           if (response.auth.valid && response.user) {

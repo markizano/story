@@ -30,6 +30,16 @@ export class LoginComponent {
   doLogin(): void {
     this.isLoading = true;
     this.errorMessage = '';
+    this.authService.login(this.username, this.password).subscribe({
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = err.message;
+      },
+      complete: () => {
+        this.isLoading = false;
+        this.router.navigate(['/stories']);
+      }
+    })
   }
 
   navigateToForgotPassword(): void {

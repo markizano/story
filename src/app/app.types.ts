@@ -3,7 +3,7 @@ export type AuthStatus = {
     auth: {
         valid: boolean,
         token: string,
-        expires: string|Date,
+        expires: string | Date,
     },
     user?: {
         id: number,
@@ -13,3 +13,10 @@ export type AuthStatus = {
         lastName: string
     }
 }
+
+export type Story = {
+    id: number,
+    title: string,
+    byline: string,
+    content?: string,
+};
