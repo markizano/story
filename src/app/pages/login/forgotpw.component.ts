@@ -22,7 +22,7 @@ export class ForgotpwComponent {
     private router: Router
   ) {}
 
-  onSubmit(): void {
+  doForgotPw(): void {
     this.isLoading = true;
     this.errorMessage = '';
     this.successMessage = '';
@@ -43,9 +43,5 @@ export class ForgotpwComponent {
         }
       }
     });
-  }
-
-  navigateToLogin(): void {
-    this.router.navigate(['/login']);
   }
 }

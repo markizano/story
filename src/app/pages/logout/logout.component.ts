@@ -17,14 +17,6 @@ export class LogoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/']);
-      },
-      error: () => {
-        // Even if the logout request fails, we'll still redirect to home
-        this.router.navigate(['/']);
-      }
-    });
+
   }
 }

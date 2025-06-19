@@ -1,13 +1,13 @@
 <div class="signup-container">
   <div class="signup-card">
     <div class="navigation-links">
-      <a href="/login" class="back-link" (click)="navigateToLogin()">← Back to Login</a>
-      <a href="/" class="back-link" (click)="navigateToHome()">← Back to Home</a>
+      <a href="/auth/login" class="back-link">← Back to Login</a>
+      <a href="/" class="back-link">← Back to Home</a>
     </div>
     <h1>Create Your Account</h1>
     <p class="subtitle">Join the adventure and start your journey today</p>
 
-    <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+    <form (ngSubmit)="doSignup()" #signupForm="ngForm">
       <div class="form-row">
         <div class="form-group">
           <label for="firstName">First Name</label>

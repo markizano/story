@@ -1,13 +1,13 @@
 <div class="forgot-password-container">
   <div class="forgot-password-card">
     <div class="navigation-links">
-      <a href="/login" class="back-link" (click)="navigateToLogin()">← Back to Login</a>
+      <a href="/auth/login" class="back-link">← Back to Login</a>
       <a href="/" class="back-link">← Back to Home</a>
     </div>
     <h1>Forgot Password</h1>
     <p class="subtitle">Enter your email address and we'll send you instructions to reset your password</p>
 
-    <form (ngSubmit)="onSubmit()" #forgotForm="ngForm">
+    <form (ngSubmit)="doForgotPw()" #forgotForm="ngForm">
       <div class="form-group">
         <label for="email">Email Address</label>
         <input

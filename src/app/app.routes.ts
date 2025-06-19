@@ -8,7 +8,7 @@ import { CharacterDetailComponent } from 'app/pages/characters/character-detail.
 import { StoriesComponent } from 'app/pages/stories/stories.component';
 import { StoryDetailComponent } from 'app/pages/stories/story-detail.component';
 import { ForgotpwComponent } from 'app/pages/login/forgotpw.component';
-import { authGuard } from './guards/auth.guard';
+import { AuthGuard } from 'app/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -17,31 +17,32 @@ export const routes: Routes = [
         path: '',
         children: [],
     }, {
-        component: SignupComponent,
-        title: 'Sign Up for the Journey!',
-        path: 'signup',
-    }, {
-        path: 'login',
+        path: 'auth',
         children: [
             {
+                component: SignupComponent,
+                title: 'Sign Up for the Journey!',
+                path: 'signup',
+            }, {
                 component: LoginComponent,
                 title: 'Login to access the story!',
-                path: '',
+                path: 'login',
             },
             {
                 component: ForgotpwComponent,
                 title: 'Markizano Draconus - Forgot Password',
                 path: 'forgot',
+            },
+            {
+                component: LogoutComponent,
+                title: 'Markizano Draconus - Logout',
+                path: 'logout',
             }
         ]
     }, {
-        component: LogoutComponent,
-        title: 'Markizano Draconus - Logout',
-        path: 'logout',
-    }, {
         path: 'characters',
         title: 'Markizano Draconus - Characters',
-        canActivate: [authGuard],
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
@@ -54,7 +55,7 @@ export const routes: Routes = [
     }, {
         path: 'stories',
         title: 'Markizano Draconus - Stories',
-        canActivate: [authGuard],
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',

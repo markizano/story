@@ -4,7 +4,7 @@
     <h1>Welcome Back</h1>
     <p class="subtitle">Sign in to continue your journey</p>
 
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <form (ngSubmit)="doLogin()" #loginForm="ngForm">
       <div class="form-group">
         <label for="username">Username</label>
         <input
@@ -53,7 +53,7 @@
       </button>
 
       <div class="forgot-password">
-        <a href="/login/forgot" (click)="navigateToForgotPassword()">Forgot Password?</a>
+        <a href="/auth/forgot" (click)="navigateToForgotPassword()">Forgot Password?</a>
       </div>
     </form>
   </div>

@@ -26,11 +26,11 @@ export class SignupComponent {
     private router: Router
   ) {}
 
-  onSubmit(): void {
+  doSignup(): void {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.http.post('/api/signup', {
+    this.http.post('/api/auth/signup', {
       firstName: this.firstName,
       lastName: this.lastName,
       username: this.username,
@@ -39,7 +39,7 @@ export class SignupComponent {
     }).subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;
@@ -52,13 +52,5 @@ export class SignupComponent {
         }
       }
     });
-  }
-
-  navigateToLogin(): void {
-    this.router.navigate(['/login']);
-  }
-
-  navigateToHome(): void {
-    this.router.navigate(['/']);
   }
 }

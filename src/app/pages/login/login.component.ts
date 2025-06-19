@@ -27,29 +27,12 @@ export class LoginComponent {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/stories';
   }
 
-  onSubmit(): void {
+  doLogin(): void {
     this.isLoading = true;
     this.errorMessage = '';
-
-    this.authService.login(this.username, this.password).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.router.navigateByUrl(this.returnUrl);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        if (error.status === 401 || error.status === 403) {
-          this.errorMessage = 'Invalid username or password. Please try again.';
-        } else if (error.status >= 500) {
-          this.errorMessage = 'An error occurred. Please try again later.';
-        } else {
-          this.errorMessage = 'An unexpected error occurred. Please try again.';
-        }
-      }
-    });
   }
 
   navigateToForgotPassword(): void {
-    this.router.navigate(['login', 'forgot']);
+    this.router.navigate(['/auth/forgot']);
   }
 }
