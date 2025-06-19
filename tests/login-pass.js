@@ -1,0 +1,190 @@
+const http = require('http');
+const url = require('url');
+const crypto = require('crypto');
+
+const PORT = 3000;
+
+// Mock user data for testing
+const mockUser = {
+  id: 1,
+  username: 'testuser',
+  email: 'test@example.com',
+  firstName: 'Test',
+  lastName: 'User'
+};
+
+const BEARER_TOKEN = crypto.randomBytes(64).toString('base64')
+
+const server = http.createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  const path = parsedUrl.pathname;
+  const method = req.method;
+
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Content-Type', 'application/json');
+
+  // Handle preflight requests
+  if (method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
+  // Route handling
+  switch (path) {
+    case '/api/auth/login':
+      if (method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+          body += chunk.toString();
+        });
+        req.on('end', () => {
+          try {
+            const loginData = JSON.parse(body);
+            console.log('Login attempt:', loginData);
+            
+            // Always return success for testing
+            res.writeHead(200);
+            res.end(JSON.stringify({
+              auth: {
+                valid: true,
+                token: BEARER_TOKEN,
+                expires: new Date( Date.now() + ( 600*1000 )), // JS Date is always in (MS) not (S)
+              },
+              user: mockUser,
+            }));
+          } catch (error) {
+            res.writeHead(400);
+            res.end(JSON.stringify({ error: 'Invalid JSON' }));
+          }
+        });
+      } else {
+        res.writeHead(405);
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
+      }
+      break;
+
+    case '/api/auth/status':
+      if (method === 'POST') {
+        // Always return authenticated for testing
+        res.writeHead(201);
+        res.end(JSON.stringify({
+            auth: {
+                valid: true,
+                token: BEARER_TOKEN,
+                expires: new Date( Date.now() + ( 600*1000 )), // JS Date is always in (MS) not (S)
+            },
+            user: mockUser
+        }));
+      } else {
+        res.writeHead(405);
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
+      }
+      break;
+
+    case '/api/auth/logout':
+      if (method === 'POST') {
+        console.log('Logout request received');
+        res.writeHead(200);
+        res.end(JSON.stringify({
+          success: true,
+          message: 'Logout successful'
+        }));
+      } else {
+        res.writeHead(405);
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
+      }
+      break;
+
+    case '/api/auth/signup':
+      if (method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+          body += chunk.toString();
+        });
+        req.on('end', () => {
+          try {
+            const signupData = JSON.parse(body);
+            console.log('Signup attempt:', signupData);
+            
+            // Always return success for testing
+            res.writeHead(201);
+            res.end(JSON.stringify({
+              success: true,
+              message: 'Account created successfully',
+              user: {
+                ...mockUser,
+                username: signupData.username,
+                email: signupData.email,
+                firstName: signupData.firstName,
+                lastName: signupData.lastName
+              }
+            }));
+          } catch (error) {
+            res.writeHead(400);
+            res.end(JSON.stringify({ error: 'Invalid JSON' }));
+          }
+        });
+      } else {
+        res.writeHead(405);
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
+      }
+      break;
+
+    case '/api/auth/forgot':
+      if (method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+          body += chunk.toString();
+        });
+        req.on('end', () => {
+          try {
+            const forgotData = JSON.parse(body);
+            console.log('Forgot password attempt:', forgotData);
+            
+            // Always return success for testing
+            res.writeHead(200);
+            res.end(JSON.stringify({
+              success: true,
+              message: 'Password reset email sent'
+            }));
+          } catch (error) {
+            res.writeHead(400);
+            res.end(JSON.stringify({ error: 'Invalid JSON' }));
+          }
+        });
+      } else {
+        res.writeHead(405);
+        res.end(JSON.stringify({ error: 'Method not allowed' }));
+      }
+      break;
+
+    default:
+      res.writeHead(404);
+      res.end(JSON.stringify({ error: 'Not found' }));
+  }
+});
+
+server.listen(PORT, () => {
+  console.log(`Mock authentication server running on http://localhost:${PORT}`);
+  console.log('Available endpoints:');
+  console.log('  POST /api/login - Always returns success');
+  console.log('  GET  /api/auth/status - Always returns authenticated');
+  console.log('  POST /api/logout - Always returns success');
+  console.log('  POST /api/signup - Always returns success');
+  console.log('  POST /api/login/forgot - Always returns success');
+  console.log('');
+  console.log('This server is for testing purposes only!');
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+  console.log('\nShutting down server...');
+  server.close(() => {
+    console.log('Server closed');
+    process.exit(0);
+  });
+}); 
