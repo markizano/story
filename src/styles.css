@@ -5,10 +5,13 @@
 /* Overall, resetting the world to normal homeostasis. */
 :root {
     --primary-light: #F5F6FF;
+    --primary-light-transparent: #F5F6FFCC;
     --primary: #6F7FFA;
     --primary-dark: #243BE8;
     --primary-darker: #071585;
+    --primary-darker-transparent: #071585CC;
     --primary-darkest: #000313;
+    --primary-darkest-transparent: #000313CC;
     --secondary-light: #F9F5FF;
     --secondary: #9E69FA;
     --secondary-transparent: #9E69FA0D;
