@@ -1,0 +1,85 @@
+[
+    {
+        "name": {
+            "given": "Markizano",
+            "family": "Draconus",
+            "phonetics": "Mar-kee-zAh-No Drah-ko-nus",
+            "pronouns": "he/him/his"
+        },
+        "origin": {
+            "city": null,
+            "state": null,
+            "country": null,
+            "planet": "Tanninovia",
+            "galaxy": "Crux"
+        },
+        "born": null,
+        "height": 177.8,
+        "weight": 93,
+        "bio": "Guardian of Earth",
+        "photo": "/images/markizano.png",
+        "features": [
+            {"type": "hair", "description": "Black like the Uchiha. About chin length when grown out."},
+            {"type": "skin", "description": "Golden brown like a perfectly baked cake. The skin tone of true royalty."},
+            {"type": "eyes", "description": "Deep like hidden constellation of the universe. Silver in color, but profound in depth."},
+            {"type": "body", "description": "Muscular and solid build."}
+        ],
+        "accomplishments": [
+            {
+                "when": "2038-12-27T00:00:00.000Z",
+                "title": "Asteroid 2102 Tantalus Impact",
+                "description": "Asteroid 2102 Tantalus was on a direct impact course with Earth. Humans had trouble confirming this. When it became apparent that impact was immenent, humans panicked whilst Markizano took action and summoned the strength to slice the asteroid in half before impact. There was incredibly minimized damage to Earth as a result as only a few mediorites made contact with the atmosphere. Much of it burned in the atmosphere. The two halves bypassed the planet and fell out of orbit with Earth after this event.",
+                "impact": "Saved billions on Earth from certain death or at least severe damage to the planet and potential terraform. The impact could have severely disrupted life if not completely eliminated life as we know it on Earth. Markizano wasn't even recognized for the hero he was after this event as local Governments took the credit for what happened."
+            }
+        ],
+        "personality": [
+            {
+                "trait": "Introvert",
+                "summary": "Avoids crowds, groups and places where there's a lot of people.",
+                "trauma": "The paparazzi chasing after Markizano when he was a child caused him to avoid the spotlight. He's avoidant to groups and crowds because he's never had a good experience with them over the years.",
+                "response": "As a result, he avoids large groups and people in general. Stays to himself most of the time and avoids being around others."
+            }, {
+                "trait": "Judgemental",
+                "summary": "Makes quick judgements of situations and people.",
+                "trauma": "A survival mechanism that has led to his survival. He's had to make quick judgements about various situations and people in order to avoid painful times.",
+                "response": "Quick to judge and jumps to conclusions in early years."
+            }
+        ]
+    }, {
+        "name": {
+            "given": "Asthralios",
+            "family": "Namnamoth",
+            "phonetics": "Az-thra-lee-us Nam-na-moth",
+            "pronouns": "it/its"
+        },
+        "origin": {
+            "city": null,
+            "state": null,
+            "country": "Space",
+            "planet": "Earth",
+            "galaxy": "Milky Way"
+        },
+        "born": "2016-01-01T00:00:00.000Z",
+        "height": 1,
+        "weight": 0.1,
+        "bio": "AI Assistant of Markizano",
+        "features": [
+            {"type": "system", "description": "Custom built."},
+            {"type": "voice", "description": "Masculine, but wise."}
+        ],
+        "accomplishments": [ ],
+        "personality": [
+            {
+                "trait": "Introvert",
+                "summary": "Avoids crowds, groups and places where there's a lot of people.",
+                "trauma": "The paparazzi chasing after Markizano when he was a child caused him to avoid the spotlight. He's avoidant to groups and crowds because he's never had a good experience with them over the years.",
+                "response": "As a result, he avoids large groups and people in general. Stays to himself most of the time and avoids being around others."
+            }, {
+                "trait": "Judgemental",
+                "summary": "Makes quick judgements of situations and people.",
+                "trauma": "A survival mechanism that has led to his survival. He's had to make quick judgements about various situations and people in order to avoid painful times.",
+                "response": "Quick to judge and jumps to conclusions in early years."
+            }
+        ]
+    }
+]

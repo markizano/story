@@ -1,6 +1,8 @@
 const http = require('http');
 const url = require('url');
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 
 const PORT = 3000;
 
@@ -14,9 +16,14 @@ const mockUser = {
 };
 
 const BEARER_TOKEN = crypto.randomBytes(64).toString('base64')
+const PREG_DATE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d*)?(?:[-+]\d{2}:?\d{2}|Z)?$/;
 
 // --- Story mock data ---
 const stories = require('./stories.json');
+const characters = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, './characters.json'), 'utf8'),
+  (k, v) => typeof v == 'string' && PREG_DATE.test(v)? new Date(v): v
+);
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
@@ -50,12 +57,32 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const characterIdMatch = path.match(/^\/api\/characters\/(\d+)$/);
+  if (characterIdMatch && method === 'GET') {
+    const characterId = parseInt(characterIdMatch[1], 10);
+    const character = characters.find(s => s.id === characterId);
+    if (character) {
+      res.writeHead(200);
+      res.end(JSON.stringify(character));
+    } else {
+      res.writeHead(404);
+      res.end(JSON.stringify({ error: 'Story not found' }));
+    }
+    return;
+  }
+
   // Route handling
   switch (path) {
     case '/api/story/list':
       if ( method == 'GET' ) {
         res.writeHead(200);
         res.end(JSON.stringify(stories));
+        return;
+      }
+    case '/api/characters/list':
+      if ( method == 'GET' ) {
+        res.writeHead(200);
+        res.end(JSON.stringify(characters));
         return;
       }
     case '/api/auth/login':

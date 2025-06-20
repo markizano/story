@@ -23,3 +23,50 @@ export type Story = {
 
 export const NullStory: Story = { id: -1, title: '', byline: '', content: '' };
 
+export type Pronouns = "he/him/his" | "she/her/hers" | "they/them/theirs" | "it/its";
+
+export type Character = {
+    name: {
+        prefix?: string,
+        given: string,
+        family: string,
+        secondary?: string,
+        suffix?: string,
+        pronouns?: Pronouns,
+        phonetics?: string
+    },
+    origin: {
+        city?: string,
+        state?: string,
+        country?: string,
+        planet?: string,
+        galaxy?: string
+    },
+    born: Date|null,
+    height: number, // in cm
+    weight: number, // in kg
+    bio: string,
+    photo: string, // url pointing to image.
+    features: [
+        {
+            type: string,
+            description: string,
+        }
+    ],
+    accomplishments: [
+        {
+            when: Date,
+            title: string,
+            description: string,
+            impact: string,
+        }
+    ],
+    personality: [
+        {
+            trait: string,
+            summary?: string,
+            trauma?: string,
+            response?: string,
+        }
+    ]
+}
