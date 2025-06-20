@@ -1,3 +1,4 @@
+export const PLACEHOLDER_IMG: string = '/images/placeholder.png';
 
 export type AuthStatus = {
     auth: {
@@ -69,4 +70,36 @@ export type Character = {
             response?: string,
         }
     ]
-}
+};
+
+export const NullCharacter: Character = {
+    name: {
+        given: '',
+        family: ''
+    },
+    origin: {},
+    born: null,
+    height: 0,
+    weight: 0,
+    bio: '',
+    photo: '',
+    features: [
+        {
+            type: '',
+            description: ''
+        }
+    ],
+    accomplishments: [
+        {
+            when: new Date(0),
+            title: '',
+            description: '',
+            impact: ''
+        }
+    ],
+    personality: [
+        {
+            trait: ''
+        }
+    ]
+};

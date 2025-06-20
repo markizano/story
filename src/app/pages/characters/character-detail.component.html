@@ -1,1 +1,49 @@
-<p>character-detail works!</p>
+<mz-navbar [title]="`${character.name.given} ${character.name.family}`"></mz-navbar>
+<div *ngIf="character as c" class="character-detail">
+  <img [src]="c.photo || placeholder" alt="{{c.name.given}} {{c.name.family}}" class="character-photo-large" (click)="showImageModal = true" />
+  <h1>{{ c.name.prefix ? c.name.prefix + ' ' : '' }}{{ c.name.given }} {{ c.name.family }}{{ c.name.suffix ? `, ${c.name.suffix}` : '' }}</h1>
+  <div class="character-pronouns">{{ c.name.pronouns ?? 'Unknown' }}</div>
+  <div class="character-phonetics">{{ c.name.phonetics ?? '' }}</div>
+  <div class="character-origin">
+    <strong>Origin:</strong>
+    <span>{{ c.origin.city ?? '' }}{{ c.origin.city ? ', ' : '' }}{{ c.origin.state || '' }}{{ c.origin.state ? ', ' : '' }}{{ c.origin.country || '' }}{{ c.origin.country ? ', ' : '' }}{{ c.origin.planet || '' }}{{ c.origin.planet ? ', ' : '' }}{{ c.origin.galaxy || '' }}</span>
+  </div>
+  <div class="character-born"><strong>Born:</strong> {{ c.born ? (c.born | date:'longDate') : 'Unknown' }}</div>
+  <div class="character-height"><strong>Height:</strong> {{ c.height ? c.height + ' cm' : 'Unknown' }}</div>
+  <div class="character-weight"><strong>Weight:</strong> {{ c.weight ? c.weight + ' kg' : 'Unknown' }}</div>
+  <div class="character-bio" [innerText]="c.bio || 'No bio provided.'"></div>
+  <div class="character-features">
+    <strong>Features:</strong>
+    <ul>
+      <li *ngFor="let feature of c.features">{{ feature.type }}: {{ feature.description }}</li>
+    </ul>
+  </div>
+  <div class="character-accomplishments">
+    <strong>Accomplishments:</strong>
+    <ul>
+      <li *ngFor="let acc of c.accomplishments">
+        <div><strong>{{ acc.title }}</strong> ({{ acc.when | date:'longDate' }})</div>
+        <div>{{ acc.description }}</div>
+        <div><em>{{ acc.impact }}</em></div>
+      </li>
+    </ul>
+  </div>
+  <div class="character-personality">
+    <strong>Personality:</strong>
+    <ul>
+      <li *ngFor="let p of c.personality">
+        <div><strong>{{ p.trait }}</strong></div>
+        <div *ngIf="p.summary">Summary: {{ p.summary }}</div>
+        <div *ngIf="p.trauma">Trauma: {{ p.trauma }}</div>
+        <div *ngIf="p.response">Response: {{ p.response }}</div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="!character" class="character-detail-empty">Character not found.</div>
+
+<!-- Modal for fullscreen image -->
+<div *ngIf="showImageModal" class="character-image-modal" (click)="showImageModal = false">
+  <button class="character-image-modal-close" (click)="$event.stopPropagation(); showImageModal = false">&times;</button>
+  <img [src]="character.photo || placeholder" alt="{{character.name.given}} {{character.name.family}}" (click)="$event.stopPropagation()" />
+</div>

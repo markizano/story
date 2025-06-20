@@ -1,4 +1,4 @@
-<mz-navbar [title]="'Stories'" (logout)="logout()"></mz-navbar>
+<mz-navbar [title]="'Stories'"></mz-navbar>
 <div class="story-list">
   <a *ngFor="let story of stories" class="story-card" href="/stories/{{ story.id }}">
     <h2 class="story-title">{{ story.title }}</h2>

@@ -1,1 +1,13 @@
-<p>characters works!</p>
+<mz-navbar title="Characters"></mz-navbar>
+<div class="character-list">
+  <div *ngFor="let character of characters; let i = index" class="character-card">
+    <a [href]="`/characters/${i}`">
+      <img [src]="character.photo || placeholder" alt="{{character.name.given}} {{character.name.family}}" class="character-photo" />
+      <div class="character-info">
+        <h2>{{ character.name.given }} {{ character.name.family }}</h2>
+        <div class="character-pronouns">{{ character.name.pronouns || '—' }}</div>
+        <div class="character-bio" [innerText]="character.bio || 'No bio provided.'"></div>
+      </div>
+    </a>
+  </div>
+</div>

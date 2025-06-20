@@ -8,9 +8,4 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NavbarComponent {
   @Input() title: string = '';
-  @Output() logout = new EventEmitter<void>();
-
-  onLogout() {
-    this.logout.emit();
-  }
 }

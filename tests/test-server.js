@@ -60,7 +60,7 @@ const server = http.createServer((req, res) => {
   const characterIdMatch = path.match(/^\/api\/characters\/(\d+)$/);
   if (characterIdMatch && method === 'GET') {
     const characterId = parseInt(characterIdMatch[1], 10);
-    const character = characters.find(s => s.id === characterId);
+    const character = characters[characterId];
     if (character) {
       res.writeHead(200);
       res.end(JSON.stringify(character));

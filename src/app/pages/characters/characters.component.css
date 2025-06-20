@@ -1,0 +1,61 @@
+.character-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.character-card {
+  background: var(--primary-light);
+  border: 2px solid var(--primary);
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px var(--neutral-light-transparent);
+  width: 320px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+.character-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 6px 24px var(--primary-darkest);
+  border-color: var(--primary-dark);
+}
+.character-card a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 1rem;
+  gap: 1rem;
+}
+.character-photo {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--secondary);
+  background: var(--secondary-light);
+}
+.character-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.character-info h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--primary-darkest);
+}
+.character-pronouns {
+  font-size: 0.95rem;
+  color: var(--secondary-dark);
+  font-style: italic;
+}
+.character-bio {
+  font-size: 1rem;
+  color: var(--neutral-dark);
+  white-space: pre-line;
+  margin-top: 0.5rem;
+}
