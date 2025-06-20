@@ -1,1 +1,10 @@
-<p>stories works!</p>
+<div class="titlebar">
+  <span class="title">Stories</span>
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>
+<div class="story-list">
+  <a *ngFor="let story of stories" class="story-card" href="/stories/{{ story.id }}">
+    <h2 class="story-title">{{ story.title }}</h2>
+    <p class="story-byline">{{ story.byline }}</p>
+  </a>
+</div>

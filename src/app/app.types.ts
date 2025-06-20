@@ -20,3 +20,6 @@ export type Story = {
     byline: string,
     content?: string,
 };
+
+export const NullStory: Story = { id: -1, title: '', byline: '', content: '' };
+

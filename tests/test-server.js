@@ -15,6 +15,9 @@ const mockUser = {
 
 const BEARER_TOKEN = crypto.randomBytes(64).toString('base64')
 
+// --- Story mock data ---
+const stories = require('./stories.json');
+
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   const path = parsedUrl.pathname;
@@ -33,8 +36,28 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const storyIdMatch = path.match(/^\/api\/story\/(\d+)$/);
+  if (storyIdMatch && method === 'GET') {
+    const storyId = parseInt(storyIdMatch[1], 10);
+    const story = stories.find(s => s.id === storyId);
+    if (story) {
+      res.writeHead(200);
+      res.end(JSON.stringify(story));
+    } else {
+      res.writeHead(404);
+      res.end(JSON.stringify({ error: 'Story not found' }));
+    }
+    return;
+  }
+
   // Route handling
   switch (path) {
+    case '/api/story/list':
+      if ( method == 'GET' ) {
+        res.writeHead(200);
+        res.end(JSON.stringify(stories));
+        return;
+      }
     case '/api/auth/login':
       if (method === 'POST') {
         let body = '';
@@ -176,6 +199,8 @@ server.listen(PORT, () => {
   console.log('  POST /api/logout - Always returns success');
   console.log('  POST /api/signup - Always returns success');
   console.log('  POST /api/login/forgot - Always returns success');
+  console.log('  GET  /api/story/list - Returns all stories');
+  console.log('  GET  /api/story/:id - Returns a single story');
   console.log('');
   console.log('This server is for testing purposes only!');
 });
