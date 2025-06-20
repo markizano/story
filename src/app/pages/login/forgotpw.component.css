@@ -4,14 +4,14 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: var(--primary-light);
 }
 
 .forgot-password-card {
-  background: white;
+  background: var(--primary-light);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--neutral-dark-transparent);
   width: 100%;
   max-width: 400px;
 }
@@ -23,23 +23,23 @@
 }
 
 .back-link {
-  color: #666;
+  color: var(--neutral-dark);
   text-decoration: none;
   font-size: 0.9rem;
 }
 
 .back-link:hover {
-  color: #333;
+  color: var(--neutral-darker);
 }
 
 h1 {
   margin: 0 0 0.5rem;
-  color: #333;
+  color: var(--primary-darker);
   font-size: 1.8rem;
 }
 
 .subtitle {
-  color: #666;
+  color: var(--neutral);
   margin-bottom: 2rem;
   font-size: 0.9rem;
 }
@@ -51,14 +51,14 @@ h1 {
 label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--primary-darker);
   font-size: 0.9rem;
 }
 
 input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--neutral-lighter);
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s;
@@ -66,33 +66,33 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #4a90e2;
+  border-color: var(--primary);
 }
 
 input.error {
-  border-color: #dc3545;
+  border-color: var(--complement-dark);
 }
 
 .error-message {
-  color: #dc3545;
+  color: var(--complement-dark);
   font-size: 0.8rem;
   margin-top: 0.5rem;
 }
 
 .success-message {
-  color: #28a745;
+  color: var(--tertiary-dark);
   font-size: 0.9rem;
   margin: 1rem 0;
   padding: 0.75rem;
-  background-color: #d4edda;
+  background-color: var(--tertiary-light);
   border-radius: 4px;
 }
 
 .submit-button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #4a90e2;
-  color: white;
+  background-color: var(--primary);
+  color: var(--primary-light);
   border: none;
   border-radius: 4px;
   font-size: 1rem;
@@ -101,10 +101,10 @@ input.error {
 }
 
 .submit-button:hover:not(:disabled) {
-  background-color: #357abd;
+  background-color: var(--primary-dark);
 }
 
 .submit-button:disabled {
-  background-color: #ccc;
+  background-color: var(--neutral-light);
   cursor: not-allowed;
 }

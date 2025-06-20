@@ -1,13 +1,4 @@
-<div class="titlebar">
-  <div class="titlebar-top">
-    <span class="title">{{ story.title || 'Loading...' }}</span>
-    <span class="titlebar-actions">
-      <a class="back-btn" href="/stories">&larr; Back to stories</a>
-      <button class="logout-btn" (click)="logout()">Logout</button>
-    </span>
-  </div>
-  <div class="byline">{{ story.byline }}</div>
-</div>
+<mz-navbar [title]="story.title || 'Loading...'" (logout)="logout()"></mz-navbar>
 <div class="story-detail-container">
   <article class="story-content" style="white-space: pre-line;">
     {{ story.content }}

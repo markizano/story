@@ -5,43 +5,6 @@ body, .stories-bg {
   margin: 0;
 }
 
-.titlebar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(90deg, var(--primary) 60%, var(--secondary));
-  color: #fff;
-  padding: 1.2rem 2rem 1.2rem 2rem;
-  border-radius: 0 0 1.2rem 1.2rem;
-  box-shadow: 0 2px 8px rgba(39, 64, 255, 0.08);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.titlebar .title {
-  font-size: 1.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.logout-btn {
-  background: var(--complement);
-  color: var(--primary-darkest);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.3rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 1px 4px rgba(255, 210, 91, 0.13);
-}
-.logout-btn:hover, .logout-btn:focus {
-  background: var(--complement-dark);
-  color: #fff;
-}
-
 .stories-bg {
   min-height: 100vh;
   padding: 0;
@@ -61,7 +24,7 @@ body, .stories-bg {
   background: var(--primary-light);
   border: 1px solid var(--primary);
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(39, 64, 255, 0.07);
+  box-shadow: 0 2px 8px var(--neutral-dark-transparent);
   padding: 1.5rem 1.25rem;
   cursor: pointer;
   transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
@@ -71,7 +34,7 @@ body, .stories-bg {
 
 .story-card:hover, .story-card:focus {
   border-color: var(--secondary);
-  box-shadow: 0 4px 16px rgba(158, 105, 250, 0.13);
+  box-shadow: 0 4px 16px var(--secondary-transparent);
   transform: translateY(-2px) scale(1.02);
 }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'mz-navbar',
@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  @Input() title: string = '';
+  @Output() logout = new EventEmitter<void>();
 
+  onLogout() {
+    this.logout.emit();
+  }
 }

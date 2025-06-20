@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Story, NullStory } from 'app/app.types';
 import { RouterModule, Router } from '@angular/router';
+
+import { Story, NullStory } from 'app/app.types';
 import { AuthService } from 'app/services/auth.service';
+import { NavbarComponent } from 'app/tools/navbar/navbar.component';
 
 @Component({
   selector: 'mz-story-detail',
-  imports: [RouterModule],
+  imports: [RouterModule, NavbarComponent],
   templateUrl: './story-detail.component.html',
   styleUrl: './story-detail.component.css'
 })

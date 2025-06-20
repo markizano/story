@@ -11,6 +11,7 @@
     --primary-darkest: #000313;
     --secondary-light: #F9F5FF;
     --secondary: #9E69FA;
+    --secondary-transparent: #9E69FA0D;
     --secondary-dark: #661CE7;
     --secondary-darker: #330584;
     --secondary-darkest: #070013;
@@ -25,8 +26,10 @@
     --complement-darker: #C18C00;
     --complement-darkest: #403008;
     --neutral-lighter: #EEE;
+    --neutral-light-transparent: #F5F6FF0A;
     --neutral-light: #AAA;
     --neutral: #666;
     --neutral-dark: #333;
+    --neutral-dark-transparent: #1111110A;
     --neutral-darker: #111;
 }

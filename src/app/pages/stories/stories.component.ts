@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Story } from 'app/app.types';
-import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+import { Story } from 'app/app.types';
 import { AuthService } from 'app/services/auth.service';
+import { NavbarComponent } from 'app/tools/navbar/navbar.component';
 
 @Component({
   selector: 'mz-stories',
-  imports: [ CommonModule ],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './stories.component.html',
   styleUrl: './stories.component.css'
 })

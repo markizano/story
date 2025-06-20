@@ -5,67 +5,6 @@ body, .story-detail-bg {
   margin: 0;
 }
 
-.titlebar {
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(90deg, var(--primary) 60%, var(--secondary));
-  color: #fff;
-  padding: 1.2rem 2rem 1.2rem 2rem;
-  border-radius: 0 0 1.2rem 1.2rem;
-  box-shadow: 0 2px 8px rgba(39, 64, 255, 0.08);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.titlebar-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.titlebar-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.titlebar .title {
-  font-size: 1.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin: 0;
-}
-
-.titlebar .byline {
-  font-size: 1.1rem;
-  color: var(--complement-light);
-  font-weight: 400;
-  margin-top: 0.3rem;
-  margin-bottom: 0.2rem;
-  margin-left: 2px;
-}
-
-.logout-btn, .back-btn {
-  background: var(--complement);
-  color: var(--primary-darkest);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.3rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 1px 4px rgba(255, 210, 91, 0.13);
-  text-decoration: none;
-  margin-left: 0.5rem;
-}
-.logout-btn:hover, .logout-btn:focus, .back-btn:hover, .back-btn:focus {
-  background: var(--complement-dark);
-  color: #fff;
-}
-
 .story-detail-bg {
   min-height: 100vh;
   padding: 0;
@@ -78,25 +17,9 @@ body, .story-detail-bg {
   margin: 2.5rem auto;
   background: var(--primary-light);
   border-radius: 1.5rem;
-  box-shadow: 0 2px 16px rgba(39, 64, 255, 0.09);
+  box-shadow: 0 2px 16px var(--neutral-dark-transparent);
   padding: 2.5rem 2rem 2rem 2rem;
   margin-top: 2rem;
-}
-
-.back-btn {
-  background: var(--secondary-light);
-  color: var(--secondary-darker);
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1.2rem;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.back-btn:hover, .back-btn:focus {
-  background: var(--secondary);
-  color: #fff;
 }
 
 .story-title {
@@ -117,10 +40,10 @@ body, .story-detail-bg {
   font-size: 1.15rem;
   line-height: 1.7;
   color: var(--neutral-darker);
-  background: #fff;
+  background: var(--primary-light);
   border-radius: 0.5rem;
   padding: 1.5rem 1rem;
-  box-shadow: 0 1px 4px rgba(39, 64, 255, 0.04);
+  box-shadow: 0 1px 4px var(--neutral-dark-transparent);
   min-height: 180px;
   word-break: break-word;
 }
