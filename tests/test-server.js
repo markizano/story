@@ -43,7 +43,10 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  const storyIdMatch = path.match(/^\/api\/story\/(\d+)$/);
+  // Log the HTTP request to the console.
+  console.log(`${method}: ${path}`);
+
+  const storyIdMatch = path.match(/^\/api\/stories\/(\d+)$/);
   if (storyIdMatch && method === 'GET') {
     const storyId = parseInt(storyIdMatch[1], 10);
     const story = stories.find(s => s.id === storyId);
@@ -73,7 +76,7 @@ const server = http.createServer((req, res) => {
 
   // Route handling
   switch (path) {
-    case '/api/story/list':
+    case '/api/stories/list':
       if ( method == 'GET' ) {
         res.writeHead(200);
         res.end(JSON.stringify(stories));

@@ -19,7 +19,7 @@ export class StoriesComponent implements OnInit {
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.http.get<Story[]>('/api/story/list').subscribe(stories => {
+    this.http.get<Story[]>('/api/stories/list').subscribe(stories => {
       this.stories = stories;
     });
   }
