@@ -1,6 +1,6 @@
 <mz-navbar [title]="`${character.name.given} ${character.name.family}`"></mz-navbar>
 <div *ngIf="character as c" class="character-detail">
-  <img [src]="c.photo || placeholder" alt="{{c.name.given}} {{c.name.family}}" class="character-photo-large" (click)="showImageModal = true" />
+  <img [src]="`/api/characters/image/${id}` || placeholder" alt="{{c.name.given}} {{c.name.family}}" class="character-photo-large" (click)="showImageModal = true" />
   <h1>{{ c.name.prefix ? c.name.prefix + ' ' : '' }}{{ c.name.given }} {{ c.name.family }}{{ c.name.suffix ? `, ${c.name.suffix}` : '' }}</h1>
   <div class="character-pronouns">{{ c.name.pronouns ?? 'Unknown' }}</div>
   <div class="character-phonetics">{{ c.name.phonetics ?? '' }}</div>

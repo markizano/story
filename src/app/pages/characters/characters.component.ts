@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { PLACEHOLDER_IMG, Character } from 'app/app.types';
+import { PLACEHOLDER_IMG, CharacterIndex } from 'app/app.types';
 import { NavbarComponent } from 'app/tools/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 
@@ -12,13 +12,16 @@ import { RouterModule } from '@angular/router';
   styleUrl: './characters.component.css'
 })
 export class CharactersComponent implements OnInit {
-  characters: Character[] = [];
+  characters: CharacterIndex[] = [];
   placeholder = PLACEHOLDER_IMG;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<Character[]>('/api/characters/list').subscribe(characters => {
+    this.http.get<CharacterIndex[]>('/api/characters/list').subscribe(characters => {
+      characters.forEach(c => {
+        c.bio.length > 150 && (c.bio = c.bio.substring(0, 150) + '...')
+      })
       this.characters = characters;
     });
   }

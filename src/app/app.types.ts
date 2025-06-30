@@ -1,3 +1,8 @@
+/**
+ * For now, this is a hard link between the projects. (no symlink because Git would save it as such.)
+ * @TODO Make a central library for data types and share code among backend/frontend.
+ */
+
 export const PLACEHOLDER_IMG: string = '/images/placeholder.png';
 
 export type AuthStatus = {
@@ -16,17 +21,25 @@ export type AuthStatus = {
 }
 
 export type Story = {
-    id: number,
+    id: string,
     title: string,
     byline: string,
     content?: string,
+    filenames?: string[],
 };
 
-export const NullStory: Story = { id: -1, title: '', byline: '', content: '' };
+export const NullStory: Story = { id: '', title: '', byline: '', content: '' };
 
 export type Pronouns = "he/him/his" | "she/her/hers" | "they/them/theirs" | "it/its";
 
+export type CharacterIndex = {
+    id?: string,
+    name: string,
+    bio: string,
+}
+
 export type Character = {
+    id?: string,
     name: {
         prefix?: string,
         given: string,
@@ -47,7 +60,7 @@ export type Character = {
     height: number, // in cm
     weight: number, // in kg
     bio: string,
-    photo: string, // url pointing to image.
+    photo?: string, // url pointing to image.
     features: [
         {
             type: string,

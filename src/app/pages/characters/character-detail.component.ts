@@ -13,6 +13,7 @@ import { AuthService } from 'app/services/auth.service';
   styleUrl: './character-detail.component.css'
 })
 export class CharacterDetailComponent implements OnInit {
+  id: string = '';
   character: Character = NullCharacter;
   showImageModal = false;
   placeholder = PLACEHOLDER_IMG;
@@ -27,9 +28,9 @@ export class CharacterDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.http.get<Character>(`/api/characters/${id}`).subscribe(character => {
+    this.id = this.route.snapshot.paramMap.get('id') ?? '';
+    if (this.id) {
+      this.http.get<Character>(`/api/characters/${this.id}`).subscribe(character => {
         this.character = character;
       });
     }
